@@ -23,7 +23,7 @@ jobs:
     - run: npm ci
     - run: npm run build
 
-  publish image:
+  publish-image:
 
     runs-on: ubuntu-latest 
     permissions:
