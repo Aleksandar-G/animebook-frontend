@@ -1,5 +1,6 @@
 FROM node:16-alpine as deps
 
+
 COPY package.json package-lock.json ./
 # download dependencies
 RUN npm ci
@@ -18,4 +19,6 @@ COPY --from=builder .next ./.next
 COPY --from=builder node_modules ./node_modules
 COPY --from=builder package.json ./package.json
 
+
+LABEL org.opencontainers.image.source=https://github.com/aleksandar-g/animebook-frontend
 CMD [ "npm", "start" ]
