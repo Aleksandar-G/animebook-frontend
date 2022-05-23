@@ -15,7 +15,7 @@ export default function Home() {
     const jwt = getCookie("token");
     if (jwt) {
       axios
-        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/post`, {
+        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/post/`, {
           headers: {
             Authorization: `${jwt}`,
           },
@@ -41,7 +41,7 @@ export default function Home() {
               </button>
             </Link>
           </div>
-          <div className="w-75">
+          <div className="w-75 mx-auto">
             {posts.map((post, key) => (
               <Post key={key} post={post}></Post>
             ))}
