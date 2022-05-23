@@ -8,6 +8,7 @@ module.exports = {
       settings: {
         chromeFlags: "--no-sandbox",
         psiStrategy: "desktop",
+        emulatedFormFactor: "desktop",
       },
       numberOfRuns: 3,
     },
