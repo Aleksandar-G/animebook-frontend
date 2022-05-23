@@ -7,6 +7,7 @@ module.exports = {
       ],
       settings: {
         chromeFlags: "--no-sandbox",
+        psiStrategy: "desktop",
       },
       numberOfRuns: 3,
     },
