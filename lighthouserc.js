@@ -8,12 +8,13 @@ module.exports = {
       settings: {
         chromeFlags: "--no-sandbox",
         psiStrategy: "desktop",
+        preset: "desktop",
         //emulatedFormFactor: "desktop",
       },
       numberOfRuns: 3,
     },
     assert: {
-      preset: "lighthouse:desktop",
+      preset: "lighthouse:no-pwa",
       assertions: {
         "unused-css-rules": "off",
         "csp-xss": "off",
