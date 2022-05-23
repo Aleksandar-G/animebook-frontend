@@ -1,16 +1,26 @@
 import axios from "axios";
-import { useState } from "react/cjs/react.development";
+import { useState, useEffect } from "react";
 import Navbar from "../globalComponents/Navbar";
+import { setCookies, getCookie } from "cookies-next";
+import Link from "next/link";
+import { Layout } from "../globalComponents/Layout";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errormsg, setErrorMsg] = useState("");
-  const [showError, setShowError] = useState(false);
+  const [typeMsg, setTypeMsg] = useState("");
+  const [msg, setMsg] = useState("");
+  const [showMsg, setShowMsg] = useState(false);
+
+  useEffect(() => {
+    if (getCookie("token")) {
+      window.location.href = "/";
+    }
+  }, []);
 
   const loginSubmit = () => {
-    setShowError(false);
-    setErrorMsg("");
+    setShowMsg(false);
+    setMsg("");
     axios
       .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/login`, {
         username: username,
@@ -18,27 +28,40 @@ const Login = () => {
       })
       .then((res) => {
         const token = res.data.token;
+        setCookies("token", token);
+        setTypeMsg("success");
+        setMsg("Succsesfull");
+        setShowMsg(true);
 
-        localStorage.setItem("token", token);
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 300);
+
+        //localStorage.setItem("token", token);
       })
       .catch((err) => {
-        setShowError(true);
+        setTypeMsg("danger");
+        setShowMsg(true);
         if (err.response.status === 401) {
-          setErrorMsg(err.response.data);
+          setMsg(err.response.data);
         }
       });
   };
 
   return (
     <>
-      <Navbar />
+      <Layout />
       <div className="m-auto w-25 mt-5">
-        <div hidden={!showError} className="alert alert-danger" role="alert">
-          {errormsg}
+        <div
+          hidden={!showMsg}
+          className={"alert alert-" + typeMsg}
+          role="alert"
+        >
+          {msg}
         </div>
         <form>
           <div className="form-group">
-            <label>Email address</label>
+            <label>Username</label>
             <input
               type="username"
               className="form-control"
@@ -70,6 +93,9 @@ const Login = () => {
             Submit
           </button>
         </form>
+        <Link href="/register">
+          <a className="text-primary">You dont have an account</a>
+        </Link>
       </div>
     </>
   );

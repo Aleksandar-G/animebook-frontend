@@ -1,13 +1,23 @@
 import Navbar from "../globalComponents/Navbar";
-import { useState } from "react/cjs/react.development";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { setCookies, getCookie } from "cookies-next";
+import Link from "next/link";
+import { Layout } from "../globalComponents/Layout";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errormsg, setErrorMsg] = useState("");
-  const [showError, setShowError] = useState(false);
+  const [typeMsg, setTypeMsg] = useState("");
+  const [msg, setMsg] = useState("");
+  const [showMsg, setShowMsg] = useState(false);
+
+  useEffect(() => {
+    if (getCookie("token")) {
+      window.location.href = "/";
+    }
+  }, []);
 
   const submitRegister = () => {
     axios
@@ -18,24 +28,36 @@ const Register = () => {
       })
       .then((res) => {
         const token = res.data.token;
+        setCookies("token", token);
+        setTypeMsg("success");
+        setShowMsg(true);
+        setMsg("Registered");
 
-        localStorage.setItem("token", token);
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 300);
       })
       .catch((err) => {
-        setShowError(true);
-        setErrorMsg(err.response.data);
+        setTypeMsg("danger");
+        setShowMsg(true);
+        setMsg(err.response.data);
       });
   };
 
   return (
     <>
+      <Layout />
       <Navbar />
       <div className="m-auto w-25 mt-5">
-        <div hidden={!showError} className="alert alert-danger" role="alert">
-          {errormsg}
+        <div
+          hidden={!showMsg}
+          className={"alert alert-" + typeMsg}
+          role="alert"
+        >
+          {msg}
         </div>
         <form>
-          <div classNameName="form-group">
+          <div className="form-group">
             <label>Email address</label>
             <input
               type="email"
@@ -47,7 +69,7 @@ const Register = () => {
               }}
             />
           </div>
-          <div classNameName="form-group">
+          <div className="form-group">
             <label>Userame</label>
             <input
               type="text"
@@ -81,6 +103,11 @@ const Register = () => {
             Submit
           </button>
         </form>
+        <Link href="/login">
+          <a className="text-primary" href="#">
+            You already have a profile
+          </a>
+        </Link>
       </div>
     </>
   );
