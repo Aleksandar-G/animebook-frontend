@@ -15,6 +15,7 @@ module.exports = {
     assert: {
       preset: "lighthouse:no-pwa",
       assertions: {
+        "unused-css-rules": "off",
         "csp-xss": "off",
         "categories:performance": ["error", { minScore: 0.9 }],
         "categories:accessibility": ["error", { minScore: 0.9 }],
