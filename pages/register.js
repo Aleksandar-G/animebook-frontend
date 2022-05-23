@@ -47,7 +47,6 @@ const Register = () => {
   return (
     <>
       <Layout />
-      <Navbar />
       <div className="m-auto w-25 mt-5">
         <div
           hidden={!showMsg}
