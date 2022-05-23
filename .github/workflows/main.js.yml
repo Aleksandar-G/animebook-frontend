@@ -33,7 +33,7 @@ jobs:
           urls: |
             https://animebook-frontend.vercel.app/register
             https://animebook-frontend.vercel.app/login
-          budgetPath: ./budget.json # test performance budgets
+          configPath: ./lighthouserc.json # test performance budgets
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true # upload lighthouse report to the temporary storage
 
