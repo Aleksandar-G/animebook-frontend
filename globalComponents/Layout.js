@@ -8,6 +8,7 @@ export const Layout = () => {
       <meta
         name="description"
         content="social media for people who enjoy anime"
+        lang="en"
       />
       <link rel="icon" href="/favicon.ico" />
     </Head>
