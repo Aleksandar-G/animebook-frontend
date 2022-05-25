@@ -10,6 +10,9 @@ import Link from "next/link";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const [typeMsg, setTypeMsg] = useState("");
+  const [msg, setMsg] = useState("");
+  const [showMsg, setShowMsg] = useState(false);
 
   useEffect(() => {
     const jwt = getCookie("token");
@@ -22,6 +25,11 @@ export default function Home() {
         })
         .then((fetchedPosts) => {
           setPosts(fetchedPosts.data);
+        })
+        .catch((err) => {
+          setTypeMsg("warning");
+          setMsg("Service Temporarily Unavailable");
+          setShowMsg(true);
         });
     } else {
       window.location.href = "/login";
@@ -40,6 +48,13 @@ export default function Home() {
                 Create Post
               </button>
             </Link>
+          </div>
+          <div
+            hidden={!showMsg}
+            className={"alert alert-" + typeMsg}
+            role="alert"
+          >
+            {msg}
           </div>
           <div className="w-75 mx-auto">
             {posts.map((post, key) => (
