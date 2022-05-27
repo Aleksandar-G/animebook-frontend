@@ -86,7 +86,7 @@ const Login = () => {
             </div>
             <button
               type="button"
-              className="btn btn-primary mt-3 w-100"
+              className="btn btn-danger mt-3 w-100"
               onClick={(r) => {
                 loginSubmit(r);
               }}
