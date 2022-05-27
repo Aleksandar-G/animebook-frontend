@@ -1,6 +1,6 @@
-import Navbar from "../globalComponents/Navbar";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import styles from "../styles/Home.module.css";
 import { setCookies, getCookie } from "cookies-next";
 import Link from "next/link";
 import { Layout } from "../globalComponents/Layout";
@@ -55,58 +55,60 @@ const Register = () => {
         >
           {msg}
         </div>
-        <form>
-          <div className="form-group">
-            <label>Email address</label>
-            <input
-              type="email"
-              className="form-control"
-              aria-describedby="emailHelp"
-              placeholder="Enter email"
-              onChange={(e) => {
-                setEmail(e.target.value);
+        <div className={styles.formContainer}>
+          <form className={styles.form}>
+            <div className="form-group">
+              <label>Email address</label>
+              <input
+                type="email"
+                className="form-control"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </div>
+            <div className="form-group">
+              <label>Userame</label>
+              <input
+                type="text"
+                className="form-control"
+                aria-describedby="usernameHelp"
+                placeholder="Username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+              />
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                className="form-control"
+                aria-describedby="passwordHelp"
+                placeholder="Password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              className="btn btn-primary mt-3 w-100"
+              onClick={() => {
+                submitRegister();
               }}
-            />
-          </div>
-          <div className="form-group">
-            <label>Userame</label>
-            <input
-              type="text"
-              className="form-control"
-              aria-describedby="usernameHelp"
-              placeholder="Username"
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              type="password"
-              className="form-control"
-              aria-describedby="passwordHelp"
-              placeholder="Password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-          </div>
-          <button
-            type="button"
-            className="btn btn-primary mt-3 w-100"
-            onClick={() => {
-              submitRegister();
-            }}
-          >
-            Submit
-          </button>
-        </form>
-        <Link href="/login">
-          <a className="text-primary" href="#">
-            You already have a profile
-          </a>
-        </Link>
+            >
+              Submit
+            </button>
+          </form>
+          <Link href="/login">
+            <a className="text-primary" href="#">
+              You already have a profile
+            </a>
+          </Link>
+        </div>
       </div>
     </>
   );

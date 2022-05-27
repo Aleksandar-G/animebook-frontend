@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Navbar from "../globalComponents/Navbar";
+import styles from "../styles/Home.module.css";
 import { setCookies, getCookie } from "cookies-next";
 import Link from "next/link";
 import { Layout } from "../globalComponents/Layout";
@@ -59,43 +59,45 @@ const Login = () => {
         >
           {msg}
         </div>
-        <form>
-          <div className="form-group">
-            <label>Username</label>
-            <input
-              type="username"
-              className="form-control"
-              aria-describedby="Username"
-              placeholder="Enter Username"
-              onChange={(e) => {
-                setUsername(e.target.value);
+        <div className={styles.formContainer}>
+          <form className={styles.form}>
+            <div className="form-group">
+              <label>Username</label>
+              <input
+                type="username"
+                className="form-control"
+                aria-describedby="Username"
+                placeholder="Enter Username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+              />
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              className="btn btn-primary mt-3 w-100"
+              onClick={(r) => {
+                loginSubmit(r);
               }}
-            />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-          </div>
-          <button
-            type="button"
-            className="btn btn-primary mt-3 w-100"
-            onClick={(r) => {
-              loginSubmit(r);
-            }}
-          >
-            Submit
-          </button>
-        </form>
-        <Link href="/register">
-          <a className="text-primary">You dont have an account</a>
-        </Link>
+            >
+              Submit
+            </button>
+          </form>
+          <Link href="/register">
+            <a className="text-primary">You dont have an account</a>
+          </Link>
+        </div>
       </div>
     </>
   );
