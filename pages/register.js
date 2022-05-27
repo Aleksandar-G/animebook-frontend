@@ -19,43 +19,75 @@ const Register = () => {
     }
   }, []);
 
-  const submitRegister = () => {
-    axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/register`, {
-        email: email,
-        username: username,
-        password: password,
-      })
-      .then((res) => {
-        const token = res.data.token;
-        setCookies("token", token);
-        setTypeMsg("success");
-        setShowMsg(true);
-        setMsg("Registered");
+  const userDataValidation = () => {
+    console.log("hello");
+    const validEmail = new RegExp(
+      "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
+    );
 
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 300);
-      })
-      .catch((err) => {
-        setTypeMsg("danger");
-        setShowMsg(true);
-        setMsg(err.response.data);
-      });
+    const validPassword = new RegExp(
+      "^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).{9,36}$"
+    );
+
+    validEmail.test(email);
+    validPassword.test(password);
+
+    if (!validEmail.test(email)) {
+      setMsg("Email is not Valid");
+      setTypeMsg("warning");
+      return false;
+    }
+
+    if (!validPassword.test(password)) {
+      setMsg("Password should contain capital letters and numbers");
+      setTypeMsg("warning");
+      return false;
+    }
+
+    return true;
+  };
+
+  const submitRegister = () => {
+    const dataValid = userDataValidation();
+    if (dataValid) {
+      axios
+        .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/register`, {
+          email: email,
+          username: username,
+          password: password,
+        })
+        .then((res) => {
+          const token = res.data.token;
+          setCookies("token", token);
+          setTypeMsg("success");
+          setShowMsg(true);
+          setMsg("Registered");
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 300);
+        })
+        .catch((err) => {
+          setTypeMsg("danger");
+          setShowMsg(true);
+          setMsg("Unsuccsesful registration");
+        });
+    } else {
+      setShowMsg(true);
+    }
   };
 
   return (
     <>
       <Layout />
       <div className="m-auto w-25 mt-5">
-        <div
-          hidden={!showMsg}
-          className={"alert alert-" + typeMsg}
-          role="alert"
-        >
-          {msg}
-        </div>
         <div className={styles.formContainer}>
+          <div
+            hidden={!showMsg}
+            className={"alert alert-" + typeMsg}
+            role="alert"
+          >
+            {msg}
+          </div>
           <form className={styles.form}>
             <div className="form-group">
               <label>Email address</label>
