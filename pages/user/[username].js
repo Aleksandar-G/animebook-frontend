@@ -24,7 +24,6 @@ export const getServerSideProps = async ({ req, res, params }) => {
         },
       })
       .then((res) => {
-        console.log("opaaaaa");
         console.log(res.data);
         return {
           props: {
@@ -48,7 +47,7 @@ const UserProfile = ({ posts }) => {
       <div className={styles.title}>{username}</div>
       <div className={styles.main}>
         {posts.map((post, key) => (
-          <Post key={key} post={post}></Post>
+          <Post key={key} post={post} deletable={false}></Post>
         ))}
       </div>
     </>

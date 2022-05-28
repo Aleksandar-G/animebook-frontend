@@ -1,8 +1,7 @@
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-//import { useEffect } from "react/cjs/react.production.min";
 import styles from "../styles/Home.module.css";
-import React, { useEffect, useState } from "react";
 import Post from "../globalComponents/Post";
 import { Layout } from "../globalComponents/Layout";
 import Navbar from "../globalComponents/Navbar";
@@ -58,7 +57,7 @@ export default function Home() {
           </div>
           <div className="w-75 mx-auto">
             {posts.map((post, key) => (
-              <Post key={key} post={post}></Post>
+              <Post key={key} post={post} deletable={false}></Post>
             ))}
           </div>
         </main>
