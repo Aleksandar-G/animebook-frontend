@@ -39,17 +39,20 @@ const Register = () => {
     }
 
     if (!validPassword.test(password)) {
-      setMsg("Password should contain capital letters and numbers");
+      setMsg(
+        "Password should be at least 9 characters and it should contain capital letters and numbers"
+      );
       setTypeMsg("warning");
       return false;
     }
-
+    console.log("all is good");
     return true;
   };
 
   const submitRegister = () => {
     const dataValid = userDataValidation();
     if (dataValid) {
+      console.log("in the if");
       axios
         .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/register`, {
           email: email,
@@ -79,8 +82,9 @@ const Register = () => {
   return (
     <>
       <Layout />
-      <div className="m-auto w-25 mt-5">
+      <div className="m-auto w-75 mt-5">
         <div className={styles.formContainer}>
+          <h3>Register</h3>
           <div
             hidden={!showMsg}
             className={"alert alert-" + typeMsg}

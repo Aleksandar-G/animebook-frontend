@@ -51,15 +51,16 @@ const Login = () => {
   return (
     <>
       <Layout />
-      <div className="m-auto w-25 mt-5">
-        <div
-          hidden={!showMsg}
-          className={"alert alert-" + typeMsg}
-          role="alert"
-        >
-          {msg}
-        </div>
+      <div className="m-auto w-75 mt-5">
         <div className={styles.formContainer}>
+          <h3>Login</h3>
+          <div
+            hidden={!showMsg}
+            className={"alert alert-" + typeMsg}
+            role="alert"
+          >
+            {msg}
+          </div>
           <form className={styles.form}>
             <div className="form-group">
               <label>Username</label>
