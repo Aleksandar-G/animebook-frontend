@@ -20,7 +20,6 @@ const Register = () => {
   }, []);
 
   const userDataValidation = () => {
-    console.log("hello");
     const validEmail = new RegExp(
       "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
     );
@@ -45,14 +44,12 @@ const Register = () => {
       setTypeMsg("warning");
       return false;
     }
-    console.log("all is good");
     return true;
   };
 
   const submitRegister = () => {
     const dataValid = userDataValidation();
     if (dataValid) {
-      console.log("in the if");
       axios
         .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/register`, {
           email: email,
