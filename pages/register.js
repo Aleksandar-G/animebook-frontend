@@ -33,7 +33,7 @@ const Register = () => {
     validPassword.test(password);
 
     if (!validEmail.test(email)) {
-      setMsg("Email is not Valid");
+      setMsg("Email is not valid");
       setTypeMsg("warning");
       return false;
     }
